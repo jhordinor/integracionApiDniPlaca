@@ -1,0 +1,727 @@
+img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .form1-container {
+    margin-top: 60px;
+  }
+  
+  .form2-container {
+    margin-top: 60px;
+  }
+  
+  .icon-soat {
+    width: 35px;
+    height: 35px;
+    margin-left: 7px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  /* Estilos base para móvil */
+  .section-container {
+    background-color: #E6F4FF;
+    padding-bottom: 90px;
+    margin-top: 0px; /* Added margin for mobile */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    width: 100%;
+  }
+  
+  .container-responsive {
+    background-color: #E6F4FF;
+    border-radius: 8px;
+    padding: 0px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  .container-fluid {
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+  
+  /* Full width for mobile banner */
+  .full-width-mobile {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    max-width: 100vw;
+    position: relative;
+  }
+  
+  .mobile-form-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90%;
+  }
+  
+  @media (max-width: 767px) {
+    .mobile-form-container {
+        //margin-top: 20px;
+        width: 90%;
+    }
+  
+    .banner-mobile img {
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+  }
+  
+  /* Estilos solo para desktop */
+  @media (min-width: 768px) {
+    .section-container {
+        margin-top: 40px; /* Larger margin for desktop */
+    }
+  }
+  .floating-buttons {
+    position: fixed;
+    right: 15px;
+    top: 200px; /* botones flotantes a la altura de la placa */
+    transform: rotate(-90deg);
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    z-index: 99;
+    transform-origin: right;
+  }
+  
+  .btn-flotante {
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    padding: 6px 7px;
+    text-align: center;
+    text-transform: uppercase;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    letter-spacing: 1px;
+    transition: background-color 150ms ease; /* Transición suave */
+    width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  
+    .icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 4px;
+        flex-shrink: 0;
+    }
+  }
+  // /* Estilo para el cuadro de información a la derecha */
+  // .lg\:w-2\/6.md\:w-1\/2.rounded-lg.p-0.flex.flex-col.md\:m-auto.w-full.mt-10.md\:mt-0.mx-4.form2-container {
+  //      background-color: #01b3fe; /* Cambiado de white a azul claro */
+  //     border-radius: 38px;
+  //     padding: 20px;
+  //     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  //    }
+  
+  .btn-benefits {
+    background-color: #007BFF;
+  }
+  
+  .btn-coverages {
+    background-color: #049AE3;
+  }
+  
+  /* Efectos de interacción botones*/
+  .btn-flotante:hover,
+  .btn-flotante:active {
+    background-color: darken(#007BFF, 10%); /* Oscurece el color */
+  }
+  
+  
+  .btn-benefits:hover,
+  .btn-benefits:active {
+    background-color: darken(#007BFF, 10%);
+  }
+  
+  .btn-coverages:hover,
+  .btn-coverages:active {
+    background-color: darken(#049AE3, 10%);
+  }
+  
+  .bg-gray-300 {
+    background-color: #d1d5db; /* Color gris */
+    cursor: not-allowed; /* Muestra un cursor deshabilitado */
+  }
+  
+  .bg-la-positiva-principal {
+    background-color: #0066cc; /* Color activo */
+  }
+  
+  
+  @media (max-width: 768px) {
+    .floating-buttons {
+        top: 150px;
+    }
+    .btn-flotante:active {
+        background-color: darken(#007BFF, 15%);
+    }
+  }
+  
+  @keyframes fade {
+    0%, 45% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
+  }
+  
+  .loader {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #f97316;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Clase personalizada para la imagen */
+  .custom-img-size {
+    width: 600px;
+    height: auto;
+  }
+  
+  #benefits-section {
+    padding-top: 100px;  /* Ajusta el valor según lo que necesites */
+  }
+  
+  /* Reducir el tamaño de las imágenes */
+  .coverage-image {
+    width: 34px;
+    height: 34px;
+  }
+  
+  /* Ajuste para pantallas más grandes */
+  @media (min-width: 768px) {
+    .coverage-image {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  
+  html {
+    scroll-behavior : smooth !important;
+  }
+  
+  #coverages-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  #coverages-section h2 {
+    margin-bottom: 20px;
+  }
+  
+  #coverages-section .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajusta dinámicamente las columnas */
+    gap: 50px; /* Espaciado entre tarjetas */
+    width: 100%; /* Ocupa el ancho completo */
+    max-width: 1200px; /* Controla el ancho máximo del contenedor */
+    justify-content: center; /* Centra las tarjetas en la cuadrícula */
+    margin: 0 auto; /* Centra el contenedor en la página */
+  }
+  
+  #coverages-section .flex {
+    text-align: center;
+  }
+  
+  .benefit-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .button-container {
+    display: flex;
+    flex-wrap: wrap; // Permite que los botones se envuelvan en móvil
+    justify-content: center; // Centra los botones horizontalmente
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .btn-web, .btn-social {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px; // Bordes redondeados
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #0066cc; // Color azul actual
+    transition: all 0.3s ease;
+    flex: 1 1 auto; // Hace que los botones sean flexibles
+    text-align: center;
+    max-width: 200px; // Limita el ancho máximo para móvil
+    outline: none; // Elimina el borde predeterminado al hacer clic
+  
+    // Efecto hover para escritorio
+    &:hover {
+        background-color: #0066cc; // Mismo color azul
+        transform: translateY(-2px); // Efecto de levantar el botón
+    }
+  
+    // Efecto active para móvil y escritorio
+    &:active {
+        background-color: darken(#007BFF, 20%); // Cambia a un azul más oscuro al presionar
+        transform: translateY(0); // Sin levantar el botón al presionar
+    }
+  }
+  
+  .social-buttons {
+    display: none;
+    gap: 5px; // Menor espacio entre botones
+    margin-top: 10px;
+    flex-direction: row; // Botones de redes sociales en fila
+    width: 100%; // Ocupa todo el ancho
+    justify-content: center; // Centra los botones de redes sociales
+  
+    &.active {
+        display: flex;
+        animation: fadeIn 0.3s ease-in-out; // Animación de aparición
+    }
+  }
+  
+  .btn-social-icon {
+    padding: 10px;
+    border-radius: 20%; // Bordes redondeados
+    background-color: transparent; // Fondo transparente
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 100%; // Ocupa todo el ancho disponible
+    max-width: 60px; // Limita el ancho máximo para que no se salgan del botón "REDES SOCIALES"
+    outline: none; // Elimina el borde predeterminado al hacer clic
+  
+    // Efecto hover para escritorio
+    &:hover {
+        transform: translateY(-2px);
+    }
+  
+    // Efecto active para móvil y escritorio
+    &:active {
+        background-color: darken(#007BFF, 100px);
+        transform: translateY(0); // Sin levantar el botón al presionar
+    }
+  
+    img {
+        width: 24px;
+        height: 24px;
+        border-radius: 20%;
+    }
+  }
+  
+  .discover-text {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Animación de aparición */
+  @keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  }
+  
+  /* Estilos para pantallas más grandes (escritorio) */
+  @media (min-width: 768px) {
+    .button-container {
+        flex-wrap: nowrap; // Los botones no se envuelven en escritorio
+    }
+  
+    .btn-web, .btn-social {
+        flex: 0 1 auto; // Ancho automático en escritorio
+        max-width: none; // Sin límite de ancho
+    }
+  
+    .social-buttons {
+        flex-direction: row; // Botones de redes sociales en fila
+        width: auto; // Ancho automático
+    }
+  }
+  
+  /* Añade estos estilos para el carrusel móvil */
+  /* Desktop carousel styles */
+  .desktop-carousel {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  } 
+  
+  .desktop-carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+  }
+  
+  .desktop-carousel-item {
+    min-width: 100%;
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Mobile carousel styles - update to ensure full visibility */
+  .mobile-carousel {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .mobile-carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+  }
+  
+  .mobile-carousel-item {
+    min-width: 100%;
+    flex: 0 0 100%;
+  }
+  
+  .mobile-carousel-item img {
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* Changed from cover to contain to show full image */
+    display: block;
+  }
+  
+  .carousel-control-prev,
+  .carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .carousel-control-prev {
+    left: 10px;
+  }
+  
+  .carousel-control-next {
+    right: 10px;
+  }
+
+  /* Benefit carousel styles */
+  .benefit-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .benefit-carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+  }
+  
+  .benefit-carousel-item {
+    min-width: 100%;
+    flex: 0 0 100%;
+    display: none;
+  }
+  
+  .benefit-carousel-item.active {
+    display: block;
+  }
+  
+  .benefit-carousel-control-prev,
+  .benefit-carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .benefit-carousel-control-prev {
+    left: 10px;
+  }
+  
+  .benefit-carousel-control-next {
+    right: 10px;
+  }
+
+  /* Estilos específicos para iPad */
+  @media only screen and (min-width: 768px) and (max-width: 1024px) {
+    /* Ajustes generales para iPad */
+    .section-container {
+      padding-bottom: 60px;
+      margin-top: 20px;
+    }
+    
+    /* Ajustes para el contenedor principal */
+    .container-responsive {
+      flex-direction: column !important;
+      align-items: center;
+      padding: 0 15px;
+    }
+    
+    /* Ajustes para la imagen de escritorio en iPad */
+    .banner-desktop {
+      display: flex !important;
+      width: 100% !important;
+      max-width: 600px;
+      margin: 0 auto 30px;
+      padding: 0;
+    }
+    
+    .desktop-carousel-item img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 28px;
+    }
+    
+    /* Ajustes para el formulario en iPad */
+    .form2-container {
+      width: 90% !important;
+      max-width: 600px;
+      margin: 0 auto !important;
+      padding: 15px !important;
+    }
+    
+    /* Ajustes para los textos del formulario */
+    h2.text-white.text-3xl {
+      font-size: 22px !important;
+      text-align: center !important;
+      margin-bottom: 15px !important;
+    }
+    
+    .relative.mb-4.mx-8 {
+      margin-left: 10px !important;
+      margin-right: 10px !important;
+      margin-bottom: 12px !important;
+    }
+    
+    /* Ajustes para los botones flotantes */
+    .floating-buttons {
+      position: fixed;
+      right: 15px;
+      top: 200px; /* botones flotantes a la altura de la placa */
+      transform: rotate(-90deg);
+      display: flex;
+      flex-direction: row;
+      gap: 15px;
+      z-index: 99;
+      transform-origin: right;
+    }
+    
+    .btn-flotante {
+      font-size: 12px;
+      font-weight: bold;
+      color: #ffffff;
+      padding: 6px 7px;
+      text-align: center;
+      text-transform: uppercase;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      letter-spacing: 1px;
+      transition: background-color 150ms ease; /* Transición suave */
+      width: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+  
+      .icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 4px;
+        flex-shrink: 0;
+      }
+    }
+    
+    /* Ajustes para la sección de beneficios */
+    #benefits-section {
+      padding-top: 60px;
+      margin-top: 20px;
+    }
+    
+    #benefits-section h2 {
+      font-size: 26px !important;
+      margin-bottom: 20px !important;
+    }
+    
+    /* Ajustes para la cuadrícula de beneficios */
+    #benefits-section .grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 20px !important;
+      padding: 0 10px;
+    }
+    
+    .benefit-item {
+      margin-bottom: 25px;
+    }
+    
+    .benefit-item img {
+      border-radius: 10px;
+      max-height: 180px;
+      object-fit: cover;
+    }
+    
+    /* Ajustes para los botones de beneficios */
+    .button-container {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    
+    .btn-web, .btn-social {
+      padding: 8px 12px;
+      font-size: 12px;
+      max-width: 150px;
+      min-width: 120px;
+    }
+    
+    .social-buttons {
+      gap: 4px;
+      margin-top: 5px;
+    }
+    
+    .btn-social-icon {
+      padding: 6px;
+      max-width: 40px;
+    }
+    
+    .btn-social-icon img {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .discover-text {
+      font-size: 12px;
+      margin-top: 6px;
+    }
+    
+    /* Ajustes para la sección de coberturas */
+    #coverages-section {
+      padding-top: 40px;
+      margin-top: 20px;
+    }
+    
+    #coverages-section h2 {
+      font-size: 26px !important;
+      margin-bottom: 20px !important;
+    }
+    
+    #coverages-section .flex {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .coverage-item {
+      width: 45%;
+      margin-bottom: 15px;
+      padding: 10px;
+    }
+    
+    .coverage-image {
+      width: 35px;
+      height: 35px;
+      margin: 0 auto 8px;
+    }
+    
+    /* Ajustes para el carrusel de beneficios */
+    .benefit-carousel {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    .benefit-carousel-control-prev,
+    .benefit-carousel-control-next {
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  }
+  
+  /* Ajustes específicos para iPad Pro */
+  @media only screen and (min-width: 1024px) and (max-width: 1366px) {
+    .container-responsive {
+      flex-direction: row !important;
+    }
+    
+    .banner-desktop {
+      width: 50% !important;
+      padding-right: 20px;
+    }
+    
+    .form2-container {
+      width: 45% !important;
+    }
+    
+    h2.text-white.text-3xl {
+      font-size: 24px !important;
+      text-align: left !important;
+    }
+    
+    #benefits-section .grid {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+    
+    .coverage-item {
+      width: 30%;
+    }
+  }
+  
+  /* Ajustes específicos para iPad en orientación vertical */
+  @media only screen and (min-width: 768px) and (max-width: 834px) and (orientation: portrait) {
+    .container-responsive {
+      flex-direction: column !important;
+    }
+    
+    .banner-desktop {
+      width: 100% !important;
+      margin-bottom: 30px;
+    }
+    
+    .form2-container {
+      width: 90% !important;
+      margin: 0 auto !important;
+    }
+    
+    #benefits-section .grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }  
+  }

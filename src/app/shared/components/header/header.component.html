@@ -1,0 +1,27 @@
+<div class="banner mobile-view" (click)="navigateToHome()">
+    <img src="../../../../assets/Logo-banner.png" alt="Logo" class="logo">
+    <div class="text-container">
+        <span class="text" [class.visible]="currentText === 0">
+            <span class="main-text"><span class="first-word">Somos</span> Un broker comprometidos con tu seguridad y tu felicidad</span>
+            <button class="digital-badge">100 % Digital</button>
+        </span>
+        <span class="text" [class.visible]="currentText === 1">
+            <span class="main-text">Conoce nuestros planes y beneficios</span>
+            <button class="digital-badge">100 % Digital</button>
+        </span>
+      </div>
+  </div>
+  
+  <div class="banner desktop-view" (click)="navigateToHome()">
+    <img src="../../../../assets/Logo-banner.png" alt="Logo" class="logo">
+    <div class="text-container">
+        <span class="text" [class.visible]="currentText === 0">
+            <span class="main-text"><span class="first-word">Somos</span> Un broker comprometidos con tu seguridad y tu felicidad</span>
+            <button class="digital-badge">100 % Digital</button>
+        </span>
+        <span class="text" [class.visible]="currentText === 1">
+            <span class="main-text">Conoce nuestros planes y beneficios</span>
+            <button class="digital-badge">100 % Digital</button>
+        </span>
+      </div>
+  </div>

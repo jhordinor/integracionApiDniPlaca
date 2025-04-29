@@ -1,0 +1,26 @@
+.insurance-logo {
+    max-width: 100%; // Asegura que la imagen no exceda el ancho del contenedor
+    height: auto; // Mantiene la proporción de la imagen
+    margin-top: 1.5rem; // Ajusta el margen superior
+  
+    // Tamaño para móviles
+    @media (max-width: 767px) {
+      max-height: 60px;
+    }
+  
+    // Tamaño para tablets y escritorio
+    @media (min-width: 768px) {
+      max-height: 80px;
+    }
+  }
+  
+  // Eliminar bordes de las tarjetas
+  .h-full {
+    border: none !important;
+  }
+
+  .p-4 {
+    @media (max-width: 767px) {
+      margin-bottom: 1.5rem; // Añade un margen inferior en móviles
+    }
+  }

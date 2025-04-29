@@ -1,0 +1,174 @@
+.banner {
+  background: linear-gradient(to right, #399AD6, #1F59A3);
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  align-items: center; /* Centra verticalmente */
+  padding: 0 20px;
+  position: relative;
+  overflow: hidden;
+
+  .logo {
+    height: 40px; /* Tamaño del logo para móvil */
+    margin-right: 10px; /* Espacio entre el logo y el texto */
+    flex-shrink: 0; /* Evita que el logo se encoja */
+  }
+
+  .text-container {
+    position: relative;
+    flex: 1; /* Ocupa el espacio restante */
+    height: 100%;
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+  }
+
+  .text {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    color: white;
+    text-align: center; /* Centra el texto horizontalmente */
+    font-weight: bold; /* Texto en negrita */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px; /* Add space between text and button */
+
+    &.visible {
+      opacity: 1; /* Texto completamente visible */
+    }
+    
+    .main-text {
+      text-align: center;
+    }
+    
+    .first-word {
+      margin-right: -3px;  /* Ajusta este valor para mover "SOMOS" más a la izquierda */
+      position: relative;
+      left: -5px;  /* Ajusta este valor según necesites */
+    }
+  }
+}
+
+/* Estilos para móvil */
+.mobile-view {
+  height: 60px; /* Altura para móvil */
+
+  .text {
+    font-size: 12px; /* Tamaño del texto más pequeño para móvil */
+    line-height: 1.2; /* Espaciado entre líneas */
+
+    /* Ajustes específicos para cada texto */
+    &:nth-child(1) {
+      white-space: normal; /* Permite saltos de línea */
+    }
+
+    &:nth-child(2) {
+      white-space: nowrap; /* Mantiene el texto en una línea */
+    }
+  }
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+}
+
+/* Estilos para escritorio */
+.desktop-view {
+  height: 100px; /* Altura para escritorio */
+
+  .logo {
+    height: 60px; /* Tamaño del logo para escritorio */
+  }
+
+  .text {
+    font-size: 24px; /* Tamaño del texto más grande para escritorio */
+    white-space: nowrap; /* Evita saltos de línea */
+    gap: 30px; /* Even more space between text and button on desktop */
+    
+    .digital-badge {
+      font-size: 16px; /* Specific size for desktop */
+    }
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.digital-badge {
+  background-color: #ff0000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5em 0.8em; /* Using em units for proportional scaling */
+  min-width: 6em; /* Using em units for proportional scaling */
+  font-size: inherit; /* Inherit font size from parent */
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Added transform transition */
+  white-space: nowrap; /* Prevent wrapping of the button text */
+  text-align: center; /* Ensure text is centered within the wider button */
+  transform-origin: center; /* Ensure scaling happens from center */
+  
+  &:hover {
+    background-color: darken(#ff0000, 10%);
+  }
+}
+
+/* For mobile devices */
+@media (max-width: 768px) {
+  .digital-badge {
+    font-size: 10px; /* Base size for mobile */
+    padding: 0.3em 0.6em; /* Proportional padding */
+  }
+  
+  .mobile-view .text {
+    padding: 0 5px;
+    .first-word {
+      margin-right: -3px;  /* Ajusta este valor para mover "SOMOS" más a la izquierda */
+      position: relative;
+      left: -5px;  /* Ajusta este valor según necesites */
+    }
+    
+    .main-text {
+      text-align: center;
+      margin-bottom: 3px; /* Add space below text if it wraps */
+    }
+  }
+}
+
+/* Add responsive scaling for different screen sizes */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .desktop-view {
+    height: 80px; /* Slightly smaller height for medium screens */
+    
+    .logo {
+      height: 50px; /* Proportionally smaller logo */
+    }
+    
+    .text {
+      font-size: 20px; /* Proportionally smaller text */
+      
+      .digital-badge {
+        font-size: 14px; /* Proportionally smaller badge */
+      }
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  .desktop-view {
+    .text {
+      .digital-badge {
+        transform: scale(1); /* Default scale for large screens */
+      }
+    }
+  }
+}

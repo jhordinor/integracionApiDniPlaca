@@ -1,0 +1,60 @@
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-col md:flex-row -m-4 justify-center">
+      <!-- Primera Tarjeta -->
+      <div class="p-4 md:w-1/3"> <!--*ngIf="environment.rimacEnabled"-->
+        <div class="h-full rounded-lg overflow-hidden">
+          <div class="flex justify-center">
+            <img
+              class="insurance-logo"
+              src="./../../../../assets/logos/RIMAC.svg"
+              alt="logo de rimac"
+            />
+          </div>
+          <div class="p-6">
+            <!-- Texto -->
+            <div class="text-center mb-4">
+              <p class="text-gray-700 text-lg font-semibold">SOAT</p>
+            </div>
+            <!-- Precio -->
+            <h1 class="title-font font-medium text-3xl text-gray-900 mb-6 text-center">S/.39.00</h1>
+            <!-- Botón Cotizar -->
+            <button
+              (click)="quoteRhyme()"
+              class="text-white w-full bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+            >
+              Cotizar
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Segunda Tarjeta -->
+      <div class="p-4 w-full md:w-1/3"> <!-- Cambio aquí: w-full md:w-1/3 -->
+        <div class="h-full rounded-lg overflow-hidden">
+          <div class="flex justify-center">
+            <img
+              class="insurance-logo"
+              src="./../../../../assets/logos/la-positiva.png"
+              alt="logo de la positiva"
+            />
+          </div>
+          <div class="p-6">
+            <!-- Texto -->
+            <div class="text-center mb-4">
+              <p class="text-gray-700 text-lg font-semibold">SOAT</p>
+            </div>
+            <!-- Precio -->
+            <h1 class="title-font font-medium text-3xl text-gray-900 mb-6 text-center">S/.39.00</h1>
+            <!-- Botón Cotizar -->
+            <button
+              (click)="quotePositive()"
+              class="text-white w-full bg-orange-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+            >
+              Cotizar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

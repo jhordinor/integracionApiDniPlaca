@@ -1,0 +1,108 @@
+<section class="text-gray-600 body-font section-container">
+    <div class="container-fluid mx-auto flex flex-col lg:flex-row items-center container-responsive px-4">
+        <!-- Imagen a la izquierda (solo móvil) -->
+        <div class="banner-mobile lg:w-1/2 flex justify-start lg:pr-10 lg:mr-10 mt-0 md:hidden full-width-mobile">
+            <div class="mobile-carousel">
+                <div class="mobile-carousel-inner">
+                    <div class="mobile-carousel-item active">
+                        <img src="../../../../../../assets/view_phone2.png" alt="Descripción de la imagen" class="w-full">
+                    </div>
+                    <div class="mobile-carousel-item">
+                        <img src="../../../../../../assets/view_phone3.png" alt="Descripción de la imagen" class="w-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+        <!-- Imagen fija a la izquierda para escritorio -->
+        <div class="banner-desktop hidden md:flex lg:w-1/2 flex-col justify-center lg:pr-10 lg:mr-10 form1-container">
+            <div class="desktop-carousel" ><!-- (mouseenter)="pauseDesktopCarousel()" (mouseleave)="resumeDesktopCarousel()"-->
+                <div class="desktop-carousel-inner">
+                    <div class="desktop-carousel-item active">
+                        <img src="../../../../../../assets/escritorio-banel.png" alt="Descripción de la imagen" class="custom-img-size mx-auto" style="border-radius: 38px;">
+                    </div>
+                    <div class="desktop-carousel-item">
+                        <img src="../../../../../../assets/escritorio-banel1.png" alt="Descripción de la imagen" class="custom-img-size mx-auto" style="border-radius: 38px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+        <!-- Modifica el contenedor del formulario para mejor responsividad -->
+        <div class="lg:w-2/6 md:w-1/2 rounded-lg p-4 flex flex-col md:m-auto w-full mt-10 md:mt-0 mx-auto form2-container mobile-form-container" style="background-color: #01b3fe; border-radius: 38px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <h2 class="text-white text-3xl font-bold title-font mb-4 mx-8 text-left">
+                Compra tu SOAT desde S/39 al año
+            </h2>
+  
+            <div class="relative mb-4 mx-8">
+                <label for="license-plate" class="leading-7 text-sm text-white">Placa</label>
+                <input type="text" id="license-plate" name="license-plate" placeholder="X9X-999" 
+                    maxlength="7" 
+                    [(ngModel)]="licensePlate"
+                    (input)="onLicensePlateInput($event)"
+                    class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <p *ngIf="errorMessage" class="text-red-500 text-sm"></p>
+            </div>
+  
+            <div class="relative mb-4 mx-8">
+                <label for="document-type" class="leading-7 text-sm text-white">Tipo de documento</label>
+                <div class="relative w-full">
+                    <select id="document-type"  
+                        class="block appearance-none w-full bg-white border border-gray-300 rounded py-2 px-4 pr-8 leading-tight focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-red-500">
+                        <option value="1">DNI</option>
+                        <option value="2">RUC</option>
+                        <option value="3">CE</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <!-- <path d="M5.555 7l4.444 4 4.444-4H5.555z" /> -->
+                        </svg>
+                    </div>
+                </div>
+            </div>
+  
+            <div class="relative mb-4 mx-8">
+                <label for="document-number" class="leading-7 text-sm text-white">Número de documento</label>
+                <input type="text" id="document-number" name="document-number" 
+                [(ngModel)]="documentNumber"
+                (input)="validateDocumentNumber()"
+                [maxLength]="maxLength"
+                class="block w-full bg-white border border-gray-300 rounded py-2 px-4 leading-tight focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-red-500">
+                <p *ngIf="documentError" class="text-red-500 text-sm"></p>
+            </div>
+  
+            <div class="flex items-center mb-4 mx-8">
+                <input id="secondary-purposes" type="checkbox" 
+                    [(ngModel)]="secondaryPurposes"
+                    class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 rounded focus:ring-orange-500">
+                <label for="secondary-purposes" class="ml-2 text-sm text-white">
+                    Acepto las
+                    <button class="text-la-positiva-principal hover:text-la-positiva-principal-hov">
+                        FINALIDADES SECUNDARIAS
+                    </button>
+                </label>
+            </div>
+  
+            <div class="flex items-center mb-4 mx-8">
+                <input id="privacy-policy" type="checkbox" 
+                    [(ngModel)]="privacyPolicy"
+                    class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 rounded focus:ring-orange-500">
+                <label for="privacy-policy" class="ml-2 text-sm text-white">
+                    Acepto las
+                    <button class="text-la-positiva-principal hover:text-la-positiva-principal-hov">
+                        POLÍTICAS DE PRIVACIDAD
+                    </button>
+                </label>
+            </div>
+  
+            <p *ngIf="formError" class="text-red-500 text-sm mx-4"></p>
+  
+            <button 
+                [ngStyle]="{'background-color': isFormComplete() ? '#0066cc' : '#d1d5db'}"
+                class="text-white border-0 rounded-2xl py-2 px-8 focus:outline-none hover:bg-la-positiva-principal-hov text-lg mx-8">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+                Consultar
+            </button>
+        </div>
+    </div>
+</section>
