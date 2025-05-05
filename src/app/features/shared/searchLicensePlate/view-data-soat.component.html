@@ -1,0 +1,32 @@
+<div class="flex justify-center mt-5 min-h-screen px-4">
+<div class="w-full max-w-sm md:max-w-md lg:max-w-lg xl:max-w-[33%] bg-white shadow-md rounded-2xl p-6 space-y-4">
+    <!-- Columna izquierda -->
+    <div class="flex-1">
+      <a (click)="back()" class="text-[#1d1d4f] font-semibold flex items-center mb-4">
+        <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </a>
+  
+      <h1 class="text-3xl font-bold text-[#1d1d4f] mb-2">Actualmente tienes un SOAT activo</h1>
+      <p class="text-[#444] mb-6">No esperes a última hora y compralo hoy</p>
+  
+      <hr class="border-t border-[#cfd1e1] mb-6" />
+  
+      <span class="inline-block bg-green-100 text-green-700 text-sm font-semibold px-3 py-1 rounded-full mb-3">
+        SOAT vigente
+      </span>
+
+      @if(soatInfo()){
+        <p class="text-[#1d1d4f] text-lg font-semibold mb-1">Compañia: <span class="font-bold">{{soatInfo().data.nombre_compania.toUpperCase()}}</span> </p>
+        <p class="text-[#1d1d4f] text-lg font-semibold mb-1">Vigente desde: <span class="font-bold">{{soatInfo().data.fecha_inicio}}</span></p>
+        <p class="text-[#1d1d4f] text-lg font-semibold mb-1">Fin de vigencia: <span class="font-bold">{{soatInfo().data.fecha_fin}}</span></p>
+        <p class="text-[#1d1d4f] font-medium">PLACA: <span class="uppercase">{{soatInfo().data.placa}}</span></p>
+      }
+      
+     
+    </div>
+  
+   
+  </div>
+</div>

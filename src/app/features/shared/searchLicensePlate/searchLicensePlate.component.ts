@@ -1,128 +1,133 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormControl } from '@angular/forms';
+import { Router, RouterModule } from "@angular/router";
+import { VerficarSoatService } from './verificar-soat.service';
+import { RecaptchaModule } from 'ng-recaptcha';
+import { VerficarSoatModel } from './verificar-soat.model';
+import { SoatDataService } from './send-data-service';
+import { MessageSweetService } from '../../../shared/service/message-sweet.service';
+import { environment } from '../../../../environments/environment';
+import { finalize, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+
+interface SoatFormModel {
+  plate: FormControl<string | null>;
+  documentType: FormControl<string | null>;
+  documentNumber: FormControl<string | null>;
+  acceptSecondaryPurposes: FormControl<boolean | null>;
+  acceptPrivacyPolicy: FormControl<boolean | null>;
+}
 
 @Component({
   selector: 'app-searchLicensePlate-la-positiva',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [RouterModule, ReactiveFormsModule, RecaptchaModule],
   templateUrl: './searchLicensePlate.component.html',
-  styleUrls: ['./searchLicensePlate.component.scss'],
-  providers: [],
+  providers: [VerficarSoatService],
 })
-export class SearchLicensePlateComponent implements OnInit {
-  // Form model
-  licensePlate: string = '';
-  documentType: string = '1'; // Default to DNI
-  documentNumber: string = '';
-  secondaryPurposes: boolean = false;
-  privacyPolicy: boolean = false;
+export class SearchLicensePlateComponent {
+    soatForm!: FormGroup<SoatFormModel>;
+    recaptchaResponse: string | null = null;
+    keyCapcha: string = '';
 
-  // UI state
-  errorMessage: string | null = null;
-  documentError: string | null = null;
-  formError: string | null = null;
-  loading: boolean = false;
-  maxLength: number = 8; // Default for DNI
-
-  ngOnInit(): void {
-    // Initialize component
-  }
-
-  // Validate license plate format (X9X-999)
-  validateLicensePlate(): void {
-    const pattern = /^[A-Z0-9]{3}-[0-9]{3}$/;
-    if (!pattern.test(this.licensePlate)) {
-      this.errorMessage = 'Formato de placa inválido. Use el formato X9X-999';
-    } else {
-      this.errorMessage = null;
-    }
-  }
-
-  // Update maxLength based on document type
-  onDocumentTypeChange(): void {
-    switch (this.documentType) {
-      case '1': // DNI
-        this.maxLength = 8;
-        break;
-      case '2': // RUC
-        this.maxLength = 11;
-        break;
-      case '3': // CE
-        this.maxLength = 12;
-        break;
-    }
-    this.validateDocumentNumber();
-  }
-
-  // Validate document number based on type
-  validateDocumentNumber(): void {
-    if (!this.documentNumber) {
-      this.documentError = 'El número de documento es requerido';
-      return;
+    constructor(private readonly fb: FormBuilder,
+        private readonly verficarSoatService: VerficarSoatService,
+        private readonly soatDataService: SoatDataService,
+        private readonly message: MessageSweetService,
+        private readonly router: Router
+    ) {
+      this.soatDataService.clearData();
+      this.initializeForm();
+      this.keyCapcha = environment.keyEncrypted || '';
     }
 
-    switch (this.documentType) {
-      case '1': // DNI
-        if (!/^\d{8}$/.test(this.documentNumber)) {
-          this.documentError = 'El DNI debe tener 8 dígitos';
+    private initializeForm(): void {
+      this.soatForm = this.fb.group<SoatFormModel>({
+        plate: new FormControl('', { validators: [Validators.required, Validators.maxLength(7)], nonNullable: true }),
+        documentType: new FormControl('1', { validators: [Validators.required], nonNullable: true }),
+        documentNumber: new FormControl('', { validators: [Validators.required, Validators.minLength(8), Validators.maxLength(12)], nonNullable: true }),
+        acceptSecondaryPurposes: new FormControl(false, { validators: [Validators.requiredTrue], nonNullable: true }),
+        acceptPrivacyPolicy: new FormControl(false, { validators: [Validators.requiredTrue], nonNullable: true })
+      });
+    }
+
+    handleCaptchaResponse(response: any): void {
+      this.recaptchaResponse = response;
+      console.log("reCAPTCHA response:", response);
+    }
+
+    onPlateInput(event: any): void {
+      let value = event.target.value.toUpperCase();
+      value = value.replace(/[^A-Z0-9-]/g, '');
+      this.soatForm.get('plate')?.setValue(value, { emitEvent: false });
+    }
+
+    onDocumentTypeChange(event: any): void {
+      const docType = event.target.value;
+      const documentControl = this.soatForm.get('documentNumber');
+      
+      switch(docType) {
+        case '1': // DNI
+          documentControl?.setValidators([Validators.required, Validators.minLength(8), Validators.maxLength(8)]);
+          break;
+        case '2': // RUC
+          documentControl?.setValidators([Validators.required, Validators.minLength(11), Validators.maxLength(11)]);
+          break;
+        case '3': // CE
+          documentControl?.setValidators([Validators.required, Validators.minLength(9), Validators.maxLength(12)]);
+          break;
+      }
+      documentControl?.updateValueAndValidity();
+    }
+
+    onDocumentNumberInput(event: any): void {
+      let value = event.target.value.replace(/\D/g, '');
+      this.soatForm.get('documentNumber')?.setValue(value, { emitEvent: false });
+    }
+  
+    onSubmit(): void {
+      if (this.soatForm.valid) {
+        const request: VerficarSoatModel = {
+          plate: this.soatForm.get('plate')?.value || ''
+        };
+
+        this.verficarSoatService.searchSoat(request).pipe(
+          catchError(error => {
+            const errorMessage = this.getErrorMessage(error);
+            this.message.showWarning(errorMessage);
+            return of(null);
+          }),
+          finalize(() => {
+            // Clean up or reset operations if needed
+          })
+        ).subscribe(response => {
+          if (response) {
+            this.soatDataService.setData(response);
+            this.router.navigate(['/datosSoat']);
+          }
+        });
+      } else {
+        this.soatForm.markAllAsTouched();
+        if (!this.recaptchaResponse) {
+          this.message.showWarning('Por favor, complete el captcha');
+        } else if (!this.soatForm.get('acceptSecondaryPurposes')?.value || 
+                   !this.soatForm.get('acceptPrivacyPolicy')?.value) {
+          this.message.showWarning('Debe aceptar los términos y condiciones para continuar');
         } else {
-          this.documentError = null;
+          this.message.showWarning('Por favor, complete todos los campos requeridos correctamente');
         }
-        break;
-      case '2': // RUC
-        if (!/^\d{11}$/.test(this.documentNumber)) {
-          this.documentError = 'El RUC debe tener 11 dígitos';
-        } else {
-          this.documentError = null;
-        }
-        break;
-      case '3': // CE
-        if (!/^[A-Z0-9]{12}$/.test(this.documentNumber)) {
-          this.documentError = 'El CE debe tener 12 caracteres';
-        } else {
-          this.documentError = null;
-        }
-        break;
-    }
-  }
-
-  // Submit form
-  onSubmit(): void {
-    this.validateLicensePlate();
-    this.validateDocumentNumber();
-
-    if (!this.secondaryPurposes || !this.privacyPolicy) {
-      this.formError = 'Debe aceptar los términos y condiciones';
-      return;
+      }
     }
 
-    if (this.errorMessage || this.documentError) {
-      this.formError = 'Por favor, corrija los errores del formulario';
-      return;
+    private getErrorMessage(error: any): string {
+      switch(error.status) {
+        case 404:
+          return `No se encontró la placa ${this.soatForm.get('plate')?.value}`;
+        case 400:
+          return 'Los datos ingresados no son válidos';
+        case 500:
+        default:
+          return 'Hubo un error inesperado, por favor, inténtelo más tarde';
+      }
     }
-
-    this.loading = true;
-    // Here you would implement the actual form submission
-    // After submission is complete, set this.loading = false
-  }
-  onLicensePlateInput(event: any): void {
-    const input = event.target as HTMLInputElement;
-    input.value = input.value.toUpperCase();
-    this.licensePlate = input.value;
-  }
-
-  isFormComplete(): boolean {
-    const isLicensePlateValid = Boolean(this.licensePlate && this.licensePlate.length === 7);
-    const isDocumentValid = Boolean(this.documentNumber && !this.documentError);
-    
-    return Boolean(
-      isLicensePlateValid &&
-      isDocumentValid &&
-      this.secondaryPurposes &&
-      this.privacyPolicy &&
-      !this.errorMessage
-    );
-  }
 }
-
