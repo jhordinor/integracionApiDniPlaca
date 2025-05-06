@@ -10,12 +10,14 @@ import { SoatVehicleResponse } from '../../Soat/models/request/soat-activo';
 })
 export class VerficarSoatService {
   
-  private readonly apiUrl = environment.apiUrl; 
-  private readonly NAME_CONTROLLER:string ="SearchPlate";
+  private apiUrl = environment.apiUrl; 
 
   constructor(private readonly http: HttpClient) {}
 
   searchSoat(request:VerficarSoatModel): Observable<SoatVehicleResponse> {
-    return this.http.post<SoatVehicleResponse>(`${this.apiUrl}${this.NAME_CONTROLLER}/SearchSoat`,request);
+    this.apiUrl = this.apiUrl.replace("{nroDocumento}",request.nroDocumento)
+    this.apiUrl = this.apiUrl.replace("{placa}",request.plate)
+
+    return this.http.get<SoatVehicleResponse>(this.apiUrl);
    }
 }

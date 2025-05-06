@@ -1,3 +1,4 @@
 export interface VerficarSoatModel{
-    plate:string
+    plate:string,
+    nroDocumento:string
 }

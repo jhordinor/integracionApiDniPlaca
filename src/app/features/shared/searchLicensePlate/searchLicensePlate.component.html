@@ -33,7 +33,7 @@
             <h2 class="text-white text-3xl font-bold title-font mb-4 mx-8 text-left">
                 Compra tu SOAT desde S/39 al año
             </h2>
-  
+            <form [formGroup]="soatForm">
             <div class="relative mb-4 mx-8">
                 <label for="license-plate" class="leading-7 text-sm text-white">Placa</label>
                 <input type="text" id="license-plate" name="license-plate" placeholder="X9X-999" 
@@ -67,7 +67,7 @@
   
             <div class="flex items-center mb-4 mx-8">
                 <input id="secondary-purposes" type="checkbox" 
-                   
+                formControlName="acceptSecondaryPurposes"
                     class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 rounded focus:ring-orange-500">
                 <label for="secondary-purposes" class="ml-2 text-sm text-white">
                     Acepto las
@@ -79,7 +79,7 @@
   
             <div class="flex items-center mb-4 mx-8">
                 <input id="privacy-policy" type="checkbox" 
-          
+                   formControlName="acceptPrivacyPolicy"
                     class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 rounded focus:ring-orange-500">
                 <label for="privacy-policy" class="ml-2 text-sm text-white">
                     Acepto las
@@ -88,15 +88,6 @@
                     </button>
                 </label>
             </div>
-            <div class="form-group mx-8 mb-4">
-                <label class="leading-7 text-sm text-white">Verificación reCAPTCHA</label>
-                <re-captcha
-                    [siteKey]="keyCapcha"
-                    (resolved)="handleCaptchaResponse($event)"
-                    class="mt-2">
-                </re-captcha>
-            </div>
-            
   
             <button 
                 type="submit"
@@ -105,6 +96,7 @@
                 
                 Consultar
             </button>
+            </form>
         </div>
     </div>
 </section>
